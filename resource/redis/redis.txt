@@ -1,0 +1,33 @@
+一、k-v存储
+1. set key value
+2. get key
+3. 获取过期时间 ttl key
+4. 查看某个key是否存在 exists key 返回0代表不存在，1是存在
+5. 设置过期时间 expire key seconds
+6. 查看某个key的类型 type key
+
+二、HashMap
+7. 添加元素到map中 HMSET key data_key data_value
+8. 遍历map HGETALL key
+9. 判断某一个filed是否存在 HEXISTS key data_key
+10. 获得一个field的值 HGET key data_key
+
+三、List
+11. LPUSH key data1 data2 ....
+12. LRANGE key start_index end_index
+13. 返回list的长度 LLEN key
+
+四、Set
+14. 添加元素 SADD key data
+15. 遍历 SMEMBERS key
+16. 获得元素个数 SCARD key
+
+五、有序集合(sorted set)
+每个元素都会关联一个 double 类型的分数
+redis 正是通过分数来为集合中的成员进行从小到大的排序
+有序集合的成员是唯一的,但分数(score)却可以重复
+
+常见业务：
+（1）发帖子，实时的查看哪一条回复点赞最多
+（2）玩小程序的跳一跳，朋友排行榜
+17. ZADD key score data
