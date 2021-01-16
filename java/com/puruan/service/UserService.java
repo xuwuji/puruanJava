@@ -47,6 +47,24 @@ public class UserService {
         return user;
     }
 
+    public void vote(String id) {
+        // 将对应id的分数加1
+        redisTemplate.opsForZSet().incrementScore(VOTE_COUNT_SET, id, 1);
+    }
+
+    public HashMap<String, Double> getRank() {
+        HashMap<String, Double> ranks = new HashMap<>();
+        // set中的元素个数
+        Long count = redisTemplate.opsForZSet().zCard(VOTE_COUNT_SET);
+        // 倒序获得排名，分数大的在前面
+        Set<String> ids = redisTemplate.opsForZSet().reverseRange(VOTE_COUNT_SET, 0, count);
+        // 获得每个元素对应的分数
+        for (String id : ids) {
+            ranks.put(id, redisTemplate.opsForZSet().score(VOTE_COUNT_SET, id));
+        }
+        return ranks;
+    }
+
     public void updateUser(User user) {
         String id = String.valueOf(user.getId());
         // 缓存一致性
