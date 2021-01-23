@@ -18,17 +18,19 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(value = "/getByID", method = RequestMethod.GET)
     public User getByID(@RequestParam(value = "id") String id) {
         return userMapper.findUserById(Integer.valueOf(id));
     }
 
-
-    @RequestMapping(value = "/getByName", method = RequestMethod.GET)
+   @RequestMapping(value = "/getByName", method = RequestMethod.GET)
     public List<User> getByName(@RequestParam(value = "name") String name) {
-        return userMapper.findUserByName(name);
+        // return userMapper.getAll();
+        return userService.getByName(name);
     }
-
     @RequestMapping(value = "/findUserByCondition", method = RequestMethod.GET)
     public List<User> findUserByCondition(@RequestParam(value = "name") String name, @RequestParam(value = "sex", required = false) String sex) {
         return userMapper.findUserByCondition(name, sex);

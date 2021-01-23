@@ -47,6 +47,19 @@ public class UserService {
         return user;
     }
 
+    
+    public List<User> getByName(String username) {
+        // 判断过滤器里面是否存在
+        if (bloomFilterService.containsUsername(username)) {
+            // 查询redis
+
+            // 查不到的再去查MySQL
+            return userMapper.findUserByName(username);
+        } else {
+            return null;
+        }
+    }
+
     public void vote(String id) {
         // 将对应id的分数加1
         redisTemplate.opsForZSet().incrementScore(VOTE_COUNT_SET, id, 1);
