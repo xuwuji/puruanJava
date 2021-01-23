@@ -23,6 +23,9 @@ public class UserService {
     @Autowired
     private ObjectMapper mapper;
 
+    @Autowired
+    private BloomFilterService bloomFilterService;
+
     public static final String USER_KEY_PREFIX = "user_";
     public static final String USER_VOTE_KEY_PREFIX = "user_vote_";
     public static final String VOTE_COUNT_SET = "vote_count_set";
